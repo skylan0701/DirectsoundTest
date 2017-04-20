@@ -12,7 +12,6 @@ using ZLibNet;
 using System.Net.Sockets;
 using System.Net;
 
-//注释一下，看看会怎么样
 namespace DirectsoundTest
 {
     class DirectSound
@@ -81,8 +80,7 @@ namespace DirectsoundTest
         //设置接收数据缓冲
 
         private byte[] bytData;
-
-        //现在呢？
+        
 
         /// <summary> 
 
