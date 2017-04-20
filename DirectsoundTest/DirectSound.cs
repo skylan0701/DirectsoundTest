@@ -60,7 +60,7 @@ namespace DirectsoundTest
 
         private AutoResetEvent mNotificationEvent = null;    // 通知事件 
 
-        //设置socket
+        //设置发送socket
 
         private Socket Client = null;
 
@@ -70,9 +70,13 @@ namespace DirectsoundTest
 
         private EndPoint epServer = null;
 
-        private int sourcePort = 6002;
+        private int sourcePort = 0; //内核随机分配发送端口
 
-        private int targetPort = 6001;
+        private int targetPort = 6001; //目标端口
+
+        //设置监听socket
+
+        private Thread ListenThread;
 
         //设置接收数据缓冲
 
@@ -101,7 +105,7 @@ namespace DirectsoundTest
             mWavFormat = CreateWaveFormat();
 
 
-            //设置udp
+            //设置udp发送socket
 
 
             Client = new Socket(SocketType.Dgram, ProtocolType.Udp);
