@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +12,7 @@ using ZLibNet;
 using System.Net.Sockets;
 using System.Net;
 
-
+//注释一下，看看会怎么样
 namespace DirectsoundTest
 {
     class DirectSound
