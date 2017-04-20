@@ -20,9 +20,43 @@ namespace DirectsoundTest
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private DirectSound recorder = null;    // 录音 
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            // 
+
+            // 录音设置 
+
+            // 
+
+            recorder = new DirectSound();
+
+            string wavfile = null;
+
+            wavfile = "test.wav";
+
+            recorder.SetFileName(wavfile);
+
+            recorder.RecStart();
+
+            button.IsEnabled = false;
+            button1.IsEnabled = true;
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            recorder.RecStop();
+
+            recorder = null;
+
+            button1.IsEnabled = false;
+            button.IsEnabled = true;
         }
     }
 }
