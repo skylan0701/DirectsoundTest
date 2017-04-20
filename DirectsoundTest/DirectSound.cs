@@ -152,7 +152,7 @@ namespace DirectsoundTest
 
             // 创建录音文件 
 
-            CreateSoundFile();
+ //           CreateSoundFile();
 
 
             // 创建一个录音缓冲区，并开始录音 
@@ -211,7 +211,7 @@ namespace DirectsoundTest
             Client.Shutdown(SocketShutdown.Both);
             Client.Close();
             Client = null;
-
+/*
 
             // 回写长度信息 
 
@@ -232,7 +232,7 @@ namespace DirectsoundTest
             mWriter = null;
 
             mWaveFile = null;
-
+            */
         }
 
 
@@ -783,6 +783,45 @@ namespace DirectsoundTest
 
             mWriter.Write((int)0);   // The sample length will be written in later. 
 
+        }
+
+        //接收部分
+        class UdpState
+        {
+            public UdpClient u;
+            public IPEndPoint e;
+        }
+
+        public static bool messageReceived = false;
+
+        public static void ReceiveCallback(IAsyncResult ar)
+        {
+            UdpClient u = (UdpClient)((UdpState)(ar.AsyncState)).u;
+            IPEndPoint e = (IPEndPoint)((UdpState)(ar.AsyncState)).e;
+
+            Byte[] receiveBytes = u.EndReceive(ar, ref e);
+            
+            messageReceived = true;
+        }
+
+        public static void ReceiveMessages()
+        {
+            // Receive a message and write it to the console.
+            IPEndPoint e = new IPEndPoint(IPAddress.Any, 6001);
+            UdpClient u = new UdpClient(e);
+
+            UdpState s = new UdpState();
+            s.e = e;
+            s.u = u;
+            
+            u.BeginReceive(new AsyncCallback(ReceiveCallback), s);
+
+            // Do some work while we wait for a message. For this example,
+            // we'll just sleep
+            while (!messageReceived)
+            {
+                Thread.Sleep(100);
+            }
         }
 
     }
